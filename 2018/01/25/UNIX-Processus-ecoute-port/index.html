@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>UNIX - Lister les ports utilisés et par quel processus | Samshay</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="La commande netstat permet de lister les ports utilisés et par quel processus.Pratique quand on veut savoir si un port est utilisé et surtout par qui. 1netstat -ltunp Le résultat : 123456789101112Prot">
+<meta property="og:type" content="article">
+<meta property="og:title" content="UNIX - Lister les ports utilisés et par quel processus">
+<meta property="og:url" content="https://samshay.github.io/2018/01/25/UNIX-Processus-ecoute-port/index.html">
+<meta property="og:site_name" content="Samshay">
+<meta property="og:description" content="La commande netstat permet de lister les ports utilisés et par quel processus.Pratique quand on veut savoir si un port est utilisé et surtout par qui. 1netstat -ltunp Le résultat : 123456789101112Prot">
+<meta property="og:locale" content="fr_FR">
+<meta property="article:published_time" content="2018-01-25T09:57:28.000Z">
+<meta property="article:modified_time" content="2021-02-03T09:18:55.331Z">
+<meta property="article:author" content="Samshay">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Samshay" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Samshay</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Blog Angular - Java - and others</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Rechercher"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://samshay.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-UNIX-Processus-ecoute-port" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/01/25/UNIX-Processus-ecoute-port/" class="article-date">
+  <time class="dt-published" datetime="2018-01-25T09:57:28.000Z" itemprop="datePublished">2018-01-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      UNIX - Lister les ports utilisés et par quel processus
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>La commande <code>netstat</code> permet de lister les ports utilisés et par quel processus.<br>Pratique quand on veut savoir si un port est utilisé et surtout par qui.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -ltunp</span><br></pre></td></tr></table></figure>
+<p>Le résultat :</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Proto Recv-Q Send-Q Adresse locale          Adresse distante        Etat       PID&#x2F;Program name</span><br><span class="line">tcp        0      0 0.0.0.0:57619           0.0.0.0:*               LISTEN      -               </span><br><span class="line">tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN      -               </span><br><span class="line">tcp        0      0 127.0.0.1:631           0.0.0.0:*               LISTEN      -               </span><br><span class="line">tcp        0      0 127.0.0.1:9060          0.0.0.0:*               LISTEN      30136&#x2F;node      </span><br><span class="line">tcp        0      0 0.0.0.0:111             0.0.0.0:*               LISTEN      -               </span><br><span class="line">tcp6       0      0 :::8080                 :::*                    LISTEN      11258&#x2F;java      </span><br><span class="line"></span><br><span class="line">tcp6       0      0 :::9000                 :::*                    LISTEN      30136&#x2F;node      </span><br><span class="line">tcp6       0      0 :::111                  :::*                    LISTEN      -               </span><br><span class="line">udp        0      0 0.0.0.0:5353            0.0.0.0:*                           7694&#x2F;index.ts   </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Attention : Dans certain cas il faut lancer la commande en <code>root</code> si vous voulez avoir tous les ports.</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://samshay.github.io/2018/01/25/UNIX-Processus-ecoute-port/" data-id="ckkp8mmyp00050kvgcdv66a23" data-title="UNIX - Lister les ports utilisés et par quel processus" class="article-share-link">Partager</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/02/06/GIT-Renommer-une-branche/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Récent</strong>
+      <div class="article-nav-title">
+        
+          GIT-Renommer une branche
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/01/09/Angular-Function-ready/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Ancien</strong>
+      <div class="article-nav-title">Angular - Function ready</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">avril 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">février 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">janvier 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">décembre 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Articles récents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/04/19/Raspberry-Sauvegarde-SD-card/">Raspberry-Sauvegarde SD card</a>
+          </li>
+        
+          <li>
+            <a href="/2018/02/15/Travis-Deploiement-SSH/">Travis - Deploiement SSH</a>
+          </li>
+        
+          <li>
+            <a href="/2018/02/06/GIT-Renommer-une-branche/">GIT-Renommer une branche</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/25/UNIX-Processus-ecoute-port/">UNIX - Lister les ports utilisés et par quel processus</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/09/Angular-Function-ready/">Angular - Function ready</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 Samshay<br>
+      Propulsé par <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

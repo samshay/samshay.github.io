@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Angular - Function ready | Samshay</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Pour un cas assez spécifique, j’ai eu besoin d’éxécuter du code javascript une fois que mon application angular soit chargée ( enfin surtout que le template html soit affiché ), car je viens appliquer">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Angular - Function ready">
+<meta property="og:url" content="https://samshay.github.io/2018/01/09/Angular-Function-ready/index.html">
+<meta property="og:site_name" content="Samshay">
+<meta property="og:description" content="Pour un cas assez spécifique, j’ai eu besoin d’éxécuter du code javascript une fois que mon application angular soit chargée ( enfin surtout que le template html soit affiché ), car je viens appliquer">
+<meta property="og:locale" content="fr_FR">
+<meta property="article:published_time" content="2018-01-09T14:07:47.000Z">
+<meta property="article:modified_time" content="2021-02-03T09:18:55.331Z">
+<meta property="article:author" content="Samshay">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Samshay" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Samshay</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Blog Angular - Java - and others</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Rechercher"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://samshay.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Angular-Function-ready" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/01/09/Angular-Function-ready/" class="article-date">
+  <time class="dt-published" datetime="2018-01-09T14:07:47.000Z" itemprop="datePublished">2018-01-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Angular - Function ready
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>Pour un cas assez spécifique, j’ai eu besoin d’éxécuter du code javascript une fois que mon application angular soit chargée ( enfin surtout que le template html soit affiché ), car je viens appliquer des éléments de styles sur les éléments graphiques affichés dans le template html.</p>
+<p>Mais je me suis posé la question de savoir si la fonction <code>$(document).ready</code> s’éxécutait bien après que le html soit chargé.</p>
+<p>Pour cela, rien ne vaut mieux qu’un exemple :</p>
+<script async src="//jsfiddle.net/hvf6X/56/embed/js,html,css/dark/"></script>
+
+<p>Dans ce JsFiddle, on remarque que l’on a l’enchainement suivant :</p>
+<ol>
+<li>Debut ready angular</li>
+<li>Controller</li>
+<li>Fin ready angular</li>
+<li>Ready document</li>
+</ol>
+<p>Donc en mettant mon code dans <code>$(document).ready</code>, il s’éxécutera bien après que mon angular soit chargé.</p>
+<blockquote>
+<p>Attention : Si vous faites du traitement asynchrone, le <code>$(document).ready</code> n’attendra pas que celui-ci soit fini pour s’éxécuter.</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://samshay.github.io/2018/01/09/Angular-Function-ready/" data-id="ckkp8mmyc00000kvgbmquf1ug" data-title="Angular - Function ready" class="article-share-link">Partager</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/01/25/UNIX-Processus-ecoute-port/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Récent</strong>
+      <div class="article-nav-title">
+        
+          UNIX - Lister les ports utilisés et par quel processus
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/12/21/Javascript-Temps-execution-script/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Ancien</strong>
+      <div class="article-nav-title">Javascript - Temps exécution script</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">avril 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">février 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">janvier 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">décembre 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Articles récents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/04/19/Raspberry-Sauvegarde-SD-card/">Raspberry-Sauvegarde SD card</a>
+          </li>
+        
+          <li>
+            <a href="/2018/02/15/Travis-Deploiement-SSH/">Travis - Deploiement SSH</a>
+          </li>
+        
+          <li>
+            <a href="/2018/02/06/GIT-Renommer-une-branche/">GIT-Renommer une branche</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/25/UNIX-Processus-ecoute-port/">UNIX - Lister les ports utilisés et par quel processus</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/09/Angular-Function-ready/">Angular - Function ready</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 Samshay<br>
+      Propulsé par <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

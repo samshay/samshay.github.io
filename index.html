@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Samshay</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Samshay">
+<meta property="og:url" content="https://samshay.github.io/index.html">
+<meta property="og:site_name" content="Samshay">
+<meta property="og:locale" content="fr_FR">
+<meta property="article:author" content="Samshay">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Samshay" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Samshay</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Blog Angular - Java - and others</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Rechercher"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://samshay.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-Raspberry-Sauvegarde-SD-card" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/04/19/Raspberry-Sauvegarde-SD-card/" class="article-date">
+  <time class="dt-published" datetime="2020-04-19T19:45:03.000Z" itemprop="datePublished">2020-04-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/04/19/Raspberry-Sauvegarde-SD-card/">Raspberry-Sauvegarde SD card</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>J’ai décidé d’effectuer une sauvegarde de la carte SD du raspberry sur le NAS Synology.<br>En effet, les cartes SD ne sont pas le support de stockage le plus fiable qui existe.  </p>
+<h1 id="1-Creation-d’un-partage-NFS-sur-le-NAS"><a href="#1-Creation-d’un-partage-NFS-sur-le-NAS" class="headerlink" title="1 - Création d’un partage NFS sur le NAS :"></a>1 - Création d’un partage NFS sur le NAS :</h1><p>Activer le partage NFS :</p>
+
+
+<p>Créer un répertoire partagé sur le NAS et activer le partage NFS.<br>Ici, j’autorise toutes les adresses IP de mon sous-réseau 192.168.1.10/24</p>
+
+
+<h1 id="2-Ajouter-le-partage-NFS-sur-le-raspberry"><a href="#2-Ajouter-le-partage-NFS-sur-le-raspberry" class="headerlink" title="2 - Ajouter le partage NFS sur le raspberry"></a>2 - Ajouter le partage NFS sur le raspberry</h1><ul>
+<li>Créer un répertoire sous /mnt : <code>mkdir /mnt/back_nas</code></li>
+<li>Modifier le fichier fstab : <code>sudo nano /etc/fstab</code><ul>
+<li>Ajouter la ligne : <code>IP_NAS:/volume1/REP_PARTAGE_NAS /mnt/back_nas nfs     rw,user,exec,addr=IP_NAS,nolock 0       0</code></li>
+</ul>
+</li>
+<li>Monter le partage : <code>sudo mount -a</code></li>
+<li>Veuillez à donner les bons droits au répertoire <code>/mnt/back_nas</code> pour pouvoir y accéder et écrire</li>
+</ul>
+<h1 id="3-Creation-du-script-de-sauvegarde"><a href="#3-Creation-du-script-de-sauvegarde" class="headerlink" title="3 - Création du script de sauvegarde"></a>3 - Création du script de sauvegarde</h1><p>J’ai créé le script dans le répertoire de partage du NAS :</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">LOGFILE=/mnt/back_nas/backup.log</span><br><span class="line">REP_NAS=/mnt/back_nas</span><br><span class="line">DATE_ET_HEURE=$(date)</span><br><span class="line">DATE=$(date +<span class="string">&quot;%Y-%m-%d&quot;</span>)</span><br><span class="line">BoxToClone=$(uname -n)</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$DATE_ET_HEURE</span> Debut de la sauvegarde de <span class="variable">$BoxToClone</span> &gt;&gt; <span class="variable">$LOGFILE</span></span><br><span class="line">FileName=SD-Backup_$BoxToClone_<span class="variable">$DATE</span>.img</span><br><span class="line">File=<span class="variable">$REP_NAS</span>/<span class="variable">$FileName</span></span><br><span class="line">sudo dd <span class="keyword">if</span>=/dev/mmcblk0 bs=4M | sudo gzip -1 -| sudo dd of=<span class="variable">$File</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#Suppression  image de plus de 7 jours</span></span><br><span class="line">find <span class="variable">$REP_NAS</span>/ -name <span class="string">&quot;*.img&quot;</span> -<span class="built_in">type</span> f -mtime +7 -<span class="built_in">exec</span> rm -f &#123;&#125; </span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$DATE_ET_HEURE</span> Fin sauvegarde &gt;&gt; <span class="variable">$LOGFILE</span></span><br></pre></td></tr></table></figure>
+<p>Ce script permet de créer la sauvegarde dans un fichier qui se nommera par exemple <code>SD-Backup_2020-04-19.img</code> et supprime les sauvegardes de plus de 7 jours.</p>
+<h1 id="4-Execution-automatique-du-script"><a href="#4-Execution-automatique-du-script" class="headerlink" title="4 - Exécution automatique du script"></a>4 - Exécution automatique du script</h1><ul>
+<li>Modifier crontab : <code>sudo crontab -e -u root</code></li>
+<li>Ajouter cette ligne pour l’éxécuter à 3 heures tout les lundi <code>00 03 * * 1 sh /mnt/back_nas/script.sh</code></li>
+</ul>
+<p>Inspiration :<br><a target="_blank" rel="noopener" href="https://ouiaremakers.com/posts/tutoriel-diy-sauver-les-framboises">https://ouiaremakers.com/posts/tutoriel-diy-sauver-les-framboises</a><br><a target="_blank" rel="noopener" href="https://domopi.eu/sauvegarde-de-la-carte-sd-du-raspberry-pi-sur-un-serveur-externe/">https://domopi.eu/sauvegarde-de-la-carte-sd-du-raspberry-pi-sur-un-serveur-externe/</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://samshay.github.io/2020/04/19/Raspberry-Sauvegarde-SD-card/" data-id="ckkp8mmyl00030kvg2qc370ao" data-title="Raspberry-Sauvegarde SD card" class="article-share-link">Partager</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Travis-Deploiement-SSH" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/02/15/Travis-Deploiement-SSH/" class="article-date">
+  <time class="dt-published" datetime="2018-02-15T08:36:45.000Z" itemprop="datePublished">2018-02-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2018/02/15/Travis-Deploiement-SSH/">Travis - Deploiement SSH</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>Pour mon projet de domotique qui est exécuté sur mon RaspberryPi, j’ai eu envie de pousser le déploiement encore plus loin et d’utiliser <a target="_blank" rel="noopener" href="https://travis-ci.org/">TRAVIS</a>.</p>
+<p>Le but étant de :</p>
+<ul>
+<li>Faire un build du projet à partir des sources hébergés sous GitHub.</li>
+<li>Déployer automatiquement le war sur le raspberry via ssh.</li>
+</ul>
+<h1 id="Creation-cle-SSH"><a href="#Creation-cle-SSH" class="headerlink" title="Création clé SSH"></a>Création clé SSH</h1><blockquote>
+<p>Attention : ne pas mettre de mot de passe.</p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -b 4096 -C <span class="string">&#x27;build@travis-ci.org&#x27;</span> -f ./deploy_rsa</span><br></pre></td></tr></table></figure>
+<h1 id="Chiffrement-de-la-cle-publique"><a href="#Chiffrement-de-la-cle-publique" class="headerlink" title="Chiffrement de la clé publique"></a>Chiffrement de la clé publique</h1><p>Au préalable il faut installer le client console de Travis : <a target="_blank" rel="noopener" href="https://github.com/travis-ci/travis.rb#installation">Installation</a></p>
+<p>Pour cette étape, j’ai copié le fichier <code>deploy_rsa</code> au même niveau que mon fichier <code>.travis.yml</code><br>Ensuite j’ai exécuté la commande pour initialiser la connexion avec Travis</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">travis login</span><br></pre></td></tr></table></figure>
+<p>Ensuite la commande suivante va nous permettre de chiffrer la clé publique <code>deploy_rsa</code> - fichier <code>deploy_rsa.enc</code> et de la stocker sous Git.<br>Attention à supprimer le fichier <code>deploy_rsa</code> et de ne pas commiter.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">travis encrypt-file deploy_rsa --add</span><br></pre></td></tr></table></figure>
+<p>Votre fichier travis a aussi été modifié, la ligne suivante a été ajoutée :</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">before_install:</span> </span><br><span class="line"><span class="bullet">-</span> <span class="string">openssl</span> <span class="string">aes-256-cbc</span> <span class="string">-K</span> <span class="string">$encrypted_xxxxxx_key</span> <span class="string">-iv</span> <span class="string">$encrypted_xxxxxxx_iv</span> <span class="string">-in</span> <span class="string">deploy_rsa.enc</span> <span class="string">-out</span> <span class="string">/tmp/deploy_rsa</span> <span class="string">-d</span></span><br></pre></td></tr></table></figure>
+<p>Vous pouvez dès maintenant déplacer la ligne avec <code>openssl</code> et la copier comme cela :</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">before_deploy:</span> </span><br><span class="line"><span class="bullet">-</span> <span class="string">openssl</span> <span class="string">aes-256-cbc</span> <span class="string">-K</span> <span class="string">$encrypted_xxxxxx_key</span> <span class="string">-iv</span> <span class="string">$encrypted_xxxxxxx_iv</span> <span class="string">-in</span> <span class="string">deploy_rsa.enc</span> <span class="string">-out</span> <span class="string">/tmp/deploy_rsa</span> <span class="string">-d</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">eval</span> <span class="string">&quot;$(ssh-agent -s)&quot;</span> </span><br><span class="line"><span class="bullet">-</span> <span class="string">chmod</span> <span class="number">600</span> <span class="string">/tmp/deploy_rsa</span> </span><br><span class="line"><span class="bullet">-</span> <span class="string">ssh-add</span> <span class="string">/tmp/deploy_rsa</span> </span><br></pre></td></tr></table></figure>
+<p>Cette configuration permet de decrypter au sein de Travis le fichier <code>deploy_rsa</code> et d’ajouter cette clé publique ssh à Travis pour ensuite se connecter en ssh.</p>
+<h1 id="Configuration-du-deploiement-ssh"><a href="#Configuration-du-deploiement-ssh" class="headerlink" title="Configuration du déploiement ssh"></a>Configuration du déploiement ssh</h1><p>Vu qu’on est en train de modifier le fichier <code>.travis.yml</code>, on va également ajouter cela :</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">provider:</span> <span class="string">script</span></span><br><span class="line">  <span class="attr">skip_cleanup:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">script:</span> <span class="string">rsync</span> <span class="string">-r</span> <span class="string">--delete-after</span> <span class="string">--quiet</span> <span class="string">$TRAVIS_BUILD_DIR/target/*.war</span> <span class="string">$ssh_user@$ssh_deploy_host:$ssh_dir</span></span><br><span class="line">  <span class="attr">on:</span></span><br><span class="line">    <span class="attr">branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure>
+<p>Ici, on vient copier le fichier avec <code>rsync</code> directement sur le serveur distant.<br>Pour info, j’ai ajouté des variable d’environnement au job :</p>
+
+
+<p>Vous pouvez dès maintenant pusher le fichier <code>deploy_rsa.enc</code> et <code>.travis.yml</code> sous GIT. Vous ne devez pusher rien d’autre.</p>
+<h1 id="Ajout-de-la-cle-privee-sur-le-serveur"><a href="#Ajout-de-la-cle-privee-sur-le-serveur" class="headerlink" title="Ajout de la clé privée sur le serveur"></a>Ajout de la clé privée sur le serveur</h1><p>Pour ma part, j’ai directement copié cette clé (<code>fichier deploy_rsa.pub</code> ) sur mon serveur et exécuté la commande suivante :</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ssh-copy-id -i deploy_rsa.pub &lt;ssh-user&gt;@&lt;deploy-host&gt;</span><br><span class="line">#Suppression fichier deploy_rsa.pub</span><br><span class="line">rm -rf deploy_rsa.pub</span><br></pre></td></tr></table></figure>
+<h1 id="Fin"><a href="#Fin" class="headerlink" title="Fin"></a>Fin</h1><p>Voila c’est tout, une fois votre job TRAVIS exécuté, votre fichier war sera directement installé sur votre serveur.</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/samshay/DomotiquePleumeleuc">Projet GIT de domotique</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://samshay.github.io/2018/02/15/Travis-Deploiement-SSH/" data-id="ckkp8mmyn00040kvgcr863g05" data-title="Travis - Deploiement SSH" class="article-share-link">Partager</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-GIT-Renommer-une-branche" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/02/06/GIT-Renommer-une-branche/" class="article-date">
+  <time class="dt-published" datetime="2018-02-06T17:04:14.000Z" itemprop="datePublished">2018-02-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2018/02/06/GIT-Renommer-une-branche/">GIT-Renommer une branche</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>Ci-dessous les commandes pour renommer une branche avec git :</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Renommage de la branche</span></span><br><span class="line">git branch -m maBranche maNouvelleBranche</span><br><span class="line"></span><br><span class="line"><span class="comment">#Suppression de l ancienne branche sur le serveur</span></span><br><span class="line">git push origin :maBranche</span><br><span class="line"></span><br><span class="line"><span class="comment">#Push de la branche renommée sur le serveur</span></span><br><span class="line">git push origin maNouvelleBranche</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://samshay.github.io/2018/02/06/GIT-Renommer-une-branche/" data-id="ckkp8mmyj00020kvg0c5a9dtz" data-title="GIT-Renommer une branche" class="article-share-link">Partager</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-UNIX-Processus-ecoute-port" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/01/25/UNIX-Processus-ecoute-port/" class="article-date">
+  <time class="dt-published" datetime="2018-01-25T09:57:28.000Z" itemprop="datePublished">2018-01-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2018/01/25/UNIX-Processus-ecoute-port/">UNIX - Lister les ports utilisés et par quel processus</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>La commande <code>netstat</code> permet de lister les ports utilisés et par quel processus.<br>Pratique quand on veut savoir si un port est utilisé et surtout par qui.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -ltunp</span><br></pre></td></tr></table></figure>
+<p>Le résultat :</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Proto Recv-Q Send-Q Adresse locale          Adresse distante        Etat       PID&#x2F;Program name</span><br><span class="line">tcp        0      0 0.0.0.0:57619           0.0.0.0:*               LISTEN      -               </span><br><span class="line">tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN      -               </span><br><span class="line">tcp        0      0 127.0.0.1:631           0.0.0.0:*               LISTEN      -               </span><br><span class="line">tcp        0      0 127.0.0.1:9060          0.0.0.0:*               LISTEN      30136&#x2F;node      </span><br><span class="line">tcp        0      0 0.0.0.0:111             0.0.0.0:*               LISTEN      -               </span><br><span class="line">tcp6       0      0 :::8080                 :::*                    LISTEN      11258&#x2F;java      </span><br><span class="line"></span><br><span class="line">tcp6       0      0 :::9000                 :::*                    LISTEN      30136&#x2F;node      </span><br><span class="line">tcp6       0      0 :::111                  :::*                    LISTEN      -               </span><br><span class="line">udp        0      0 0.0.0.0:5353            0.0.0.0:*                           7694&#x2F;index.ts   </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Attention : Dans certain cas il faut lancer la commande en <code>root</code> si vous voulez avoir tous les ports.</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://samshay.github.io/2018/01/25/UNIX-Processus-ecoute-port/" data-id="ckkp8mmyp00050kvgcdv66a23" data-title="UNIX - Lister les ports utilisés et par quel processus" class="article-share-link">Partager</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Angular-Function-ready" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/01/09/Angular-Function-ready/" class="article-date">
+  <time class="dt-published" datetime="2018-01-09T14:07:47.000Z" itemprop="datePublished">2018-01-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2018/01/09/Angular-Function-ready/">Angular - Function ready</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>Pour un cas assez spécifique, j’ai eu besoin d’éxécuter du code javascript une fois que mon application angular soit chargée ( enfin surtout que le template html soit affiché ), car je viens appliquer des éléments de styles sur les éléments graphiques affichés dans le template html.</p>
+<p>Mais je me suis posé la question de savoir si la fonction <code>$(document).ready</code> s’éxécutait bien après que le html soit chargé.</p>
+<p>Pour cela, rien ne vaut mieux qu’un exemple :</p>
+<script async src="//jsfiddle.net/hvf6X/56/embed/js,html,css/dark/"></script>
+
+<p>Dans ce JsFiddle, on remarque que l’on a l’enchainement suivant :</p>
+<ol>
+<li>Debut ready angular</li>
+<li>Controller</li>
+<li>Fin ready angular</li>
+<li>Ready document</li>
+</ol>
+<p>Donc en mettant mon code dans <code>$(document).ready</code>, il s’éxécutera bien après que mon angular soit chargé.</p>
+<blockquote>
+<p>Attention : Si vous faites du traitement asynchrone, le <code>$(document).ready</code> n’attendra pas que celui-ci soit fini pour s’éxécuter.</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://samshay.github.io/2018/01/09/Angular-Function-ready/" data-id="ckkp8mmyc00000kvgbmquf1ug" data-title="Angular - Function ready" class="article-share-link">Partager</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Javascript-Temps-execution-script" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2017/12/21/Javascript-Temps-execution-script/" class="article-date">
+  <time class="dt-published" datetime="2017-12-21T14:34:52.000Z" itemprop="datePublished">2017-12-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2017/12/21/Javascript-Temps-execution-script/">Javascript - Temps exécution script</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>Il peut être utile parfois de mesure le temps d’éxécution d’un bout de code javascript.</p>
+<p>Pour cela, c’est assez simple, on ajoute </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.time(<span class="string">&quot;MonMessageDeDébut&quot;</span>);</span><br></pre></td></tr></table></figure>
+<p>et cette ligne à la fin du code :</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.timeEnd(<span class="string">&quot;MonMessageDeFin&quot;</span>);</span><br></pre></td></tr></table></figure>
+<p>Voici un exemple pour illuster ou je compare le temps d’éxécution d’un <strong>for</strong> natif et d’un <strong>angular foreach</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.time(<span class="string">&quot;native-for&quot;</span>);</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; vm.listePays.length;i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (vm.listePays[i].code===<span class="string">&#x27;FR&#x27;</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        vm.data.pays=vm.listePays[i];</span><br><span class="line">    <span class="comment">//break;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.timeEnd(<span class="string">&quot;native-for&quot;</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.time(<span class="string">&quot;angular-foreach&quot;</span>);</span><br><span class="line">angular.forEach(vm.listePays, <span class="function"><span class="keyword">function</span>(<span class="params">value, key</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(value.code===<span class="string">&#x27;FR&#x27;</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        vm.data.pays=value;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.timeEnd(<span class="string">&quot;angular-foreach&quot;</span>);</span><br></pre></td></tr></table></figure>
+<p>On visualise le résultat dans la console du navigateur :</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">native-for: 0.072ms</span><br><span class="line">angular-foreach: 0.094ms</span><br></pre></td></tr></table></figure>
+<p>On remarque donc que le native-for est plus rapide que l’angular-foreach.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://samshay.github.io/2017/12/21/Javascript-Temps-execution-script/" data-id="ckkp8mmyh00010kvgaivz24vf" data-title="Javascript - Temps exécution script" class="article-share-link">Partager</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">avril 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">février 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">janvier 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">décembre 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Articles récents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/04/19/Raspberry-Sauvegarde-SD-card/">Raspberry-Sauvegarde SD card</a>
+          </li>
+        
+          <li>
+            <a href="/2018/02/15/Travis-Deploiement-SSH/">Travis - Deploiement SSH</a>
+          </li>
+        
+          <li>
+            <a href="/2018/02/06/GIT-Renommer-une-branche/">GIT-Renommer une branche</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/25/UNIX-Processus-ecoute-port/">UNIX - Lister les ports utilisés et par quel processus</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/09/Angular-Function-ready/">Angular - Function ready</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 Samshay<br>
+      Propulsé par <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
